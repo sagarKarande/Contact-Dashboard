@@ -1,0 +1,54 @@
+﻿@model MvcApplication2.Models.ContactModel
+
+@{
+    ViewBag.Title = "UpdateContact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>UpdateContact</h2>*@
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Update Contact</legend>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Person</span>
+            </div>
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })&nbsp;
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Email</span>
+            </div>
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Phone Number</span>
+            </div>
+            @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+        </div>
+        @if (ViewBag.Message != null)
+        {
+            <label>@ViewBag.Message</label>
+        }
+        <div>
+            <input type="submit" class="btn btn-primary" value="Save" />
+            <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Url.Action("ListContact", "Contact")'" />
+            @*@Html.("Back to List", "ListContact", new { @class = "btn btn-primary" })*@
+        </div>
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

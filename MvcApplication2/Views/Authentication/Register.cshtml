@@ -1,0 +1,46 @@
+﻿@model MvcApplication2.Models.User
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Register</legend>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">User Name</span>
+            </div>
+            @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Password</span>
+            </div>
+            @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            <input type="submit" class="btn btn-primary" value="Register" />
+            <input type="button" class="btn btn-primary" value="Back to List" onclick="location.href='@Url.Action("ListContact", "Contact")'" />
+            @*@Html.("Back to List", "ListContact", new { @class = "btn btn-primary" })*@
+        </div>
+        @if (ViewBag.Message != null)
+        { 
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>@ViewBag.Message</strong> .
+            </div> 
+        }
+    </fieldset>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
